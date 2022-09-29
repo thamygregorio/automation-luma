@@ -1,0 +1,22 @@
+{
+  "name": "automation-luma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thamygregorio/automation-luma.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thamygregorio/automation-luma/issues"
+  },
+  "homepage": "https://github.com/thamygregorio/automation-luma#readme",
+  "devDependencies": {
+    "cypress": "^10.9.0"
+  }
+}
