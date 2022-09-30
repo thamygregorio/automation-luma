@@ -15,6 +15,7 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
     },
+    // baseUrl: "https://magento.nublue.co.uk/",
     baseUrl: "http://139.162.47.20/magento222/",
   },
 });
