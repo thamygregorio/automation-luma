@@ -1,32 +1,38 @@
+import AccountPage from '../support/pages/accountPage'
+import CheckoutPage from '../support/pages/checkoutPage'
+import HomePage from '../support/pages/homePage'
+import ProductPage from '../support/pages/productPage'
+const homePage = new HomePage
+const accountPage = new AccountPage
+const productPage = new ProductPage
+const checkoutPage = new CheckoutPage
+
 beforeEach(() => {
-  cy.visit('/')
+
+  homePage.go()
+
 })
 
-// Add to Cart
 describe('Cart and Checkout', () => {
+
   it('Add to cart and enter checkout', () => {
-    cy.get('.panel > .header > .authorization-link > a').click();
-    cy.get('#email').type('roni_cost@example.com');
-    cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .password > .control > #pass').type('roni_cost3@example.com');
-    cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .actions-toolbar > div.primary > #send2 > span').click();
-    cy.get('.product-items').contains("Breathe-Easy Tank").click();
-    cy.get('.size > .swatch-attribute-options [aria-label="M"]').click();
-    cy.get('.swatch-attribute.color > .swatch-attribute-options [aria-label="Yellow"]').click();
-    cy.get('#qty').clear().type('2');
-    cy.get('.loader').should('not.exist')
-    cy.get('#product-addtocart-button').click({force: true});
-    cy.get('#search').type('Fusion Backpack');
-    cy.get('#search_mini_form > .actions > .action').click();
-    cy.get('.product-items').contains("Fusion Backpack").click();
-    cy.get('.loader').should('not.exist')
-    cy.get('#product-addtocart-button').click({force: true});
-    cy.get('.counter-number').should('have.text', '3');
-    cy.get('.showcart').click();
-    cy.get('#top-cart-btn-checkout').click();
-    cy.get('.loader').should('not.exist')
-    cy.get(':nth-child(1) > :nth-child(1) > .radio').check();
-    cy.get('.button > span').click();
-    cy.get('.payment-method-content > :nth-child(4) > div.primary > .action').click();
-    cy.get('.base').should('have.text', 'Thank you for your purchase!');
+
+    homePage.accessSignIn();
+    accountPage.fillLoginFields('roni_cost@example.com', 'roni_cost3@example.com');
+    accountPage.submitSignIn();
+    homePage.productHomePage('Breathe-Easy Tank');
+    productPage.setSize();
+    productPage.setColor();
+    productPage.setQuantity('2');
+    productPage.addToCart('Breathe-Easy Tank');
+    homePage.productSearch('Fusion Backpack');
+    productPage.productSearchPage('Fusion Backpack');
+    productPage.addToCart('Fusion Backpack');
+    homePage.miniCard('3');
+    homePage.goToCheckoutFromMiniCard();
+    checkoutPage.selectShippmentMethod();
+    checkoutPage.placeOrder('Thank you for your purchase!');
+
   })
+
 })
